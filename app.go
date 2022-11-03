@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/fatih/color"
 	"github.com/skratchdot/open-golang/open"
 )
 
@@ -18,7 +19,7 @@ type Day struct {
 func ReadFile(path string) (result string, success bool) {
 	bytes, err := os.ReadFile((path))
 	if err != nil {
-		fmt.Printf("Error: %s\n", err)
+		color.Red("Error: %s\n", err)
 		return "", false
 	}
 
@@ -28,7 +29,7 @@ func ReadFile(path string) (result string, success bool) {
 func WriteFile(path string, content string) bool {
 	file, err := os.Create(path)
 	if err != nil {
-		fmt.Printf("Error: %s\n", err)
+		color.Red("Error: %s\n", err)
 		return false
 	}
 	defer file.Close()
@@ -71,10 +72,10 @@ func ShowSchedule(date string) {
 	}
 
 	if val, ok := schedule[date]; ok {
-		fmt.Println(date)
+		color.Green(date)
 		fmt.Println(val)
 	} else {
-		fmt.Printf("No schedule for %s\n", date)
+		color.Yellow("No schedule for %s\n", date)
 	}
 }
 
@@ -109,7 +110,7 @@ func CleanupSchedule() {
 	for _, day := range schedule {
 		dayTime, err := time.Parse("2006-01-02", day.Value)
 		if err != nil {
-			fmt.Printf("Error: %s\n", err)
+			color.Red("Error: %s\n", err)
 			return
 		}
 

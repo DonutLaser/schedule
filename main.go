@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 type Args struct {
@@ -49,7 +51,7 @@ func main() {
 		EditSchedule()
 	} else if args.Subcommand == "on" {
 		if args.Param == "" {
-			fmt.Println("Error: date is not specified")
+			color.Red("Error: date is not specified\n\n")
 			printUsage()
 			return
 		}

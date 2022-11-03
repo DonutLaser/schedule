@@ -2,4 +2,10 @@ module github.com/DonutLaser/schedule
 
 go 1.18
 
-require github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966 // indirect
+require (
+	github.com/fatih/color v1.13.0 // indirect
+	github.com/mattn/go-colorable v0.1.9 // indirect
+	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966 // indirect
+	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
+)
