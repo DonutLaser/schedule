@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 )
 
 type Args struct {
 	Subcommand string
+	Param      string
 }
 
 func printUsage() {
@@ -25,6 +27,11 @@ func parseArgs() (result Args, success bool) {
 
 	result = Args{
 		Subcommand: args[0],
+		Param:      "",
+	}
+
+	if len(args) == 2 {
+		result.Param = args[1]
 	}
 
 	return result, true
@@ -40,9 +47,17 @@ func main() {
 
 	if args.Subcommand == "edit" {
 		EditSchedule()
+	} else if args.Subcommand == "on" {
+		if args.Param == "" {
+			fmt.Println("Error: date is not specified")
+			printUsage()
+			return
+		}
+
+		ShowSchedule(args.Param)
 	} else if args.Subcommand == "cleanup" {
 		CleanupSchedule()
 	} else {
-		ShowTodaysSchedule()
+		ShowSchedule(time.Now().Format("2006-01-02"))
 	}
 }

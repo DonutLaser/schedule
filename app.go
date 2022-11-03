@@ -44,7 +44,7 @@ func GetExecutableDir() string {
 	return path.Dir(strings.ReplaceAll(exePath, "\\", "/"))
 }
 
-func ShowTodaysSchedule() {
+func ShowSchedule(date string) {
 	file, success := ReadFile(fmt.Sprintf("%s/schedule.txt", GetExecutableDir()))
 	if !success {
 		return
@@ -70,13 +70,11 @@ func ShowTodaysSchedule() {
 		}
 	}
 
-	currentTime := time.Now().Format("2006-01-02")
-
-	if val, ok := schedule[currentTime]; ok {
-		fmt.Println(currentTime)
+	if val, ok := schedule[date]; ok {
+		fmt.Println(date)
 		fmt.Println(val)
 	} else {
-		fmt.Println("No schedule for today")
+		fmt.Printf("No schedule for %s\n", date)
 	}
 }
 
