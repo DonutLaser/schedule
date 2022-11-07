@@ -40,13 +40,15 @@ func WriteFile(path string, content string) bool {
 	return true
 }
 
-func GetExecutableDir() string {
+func GetSchedulePath() string {
 	exePath, _ := os.Executable()
-	return path.Dir(strings.ReplaceAll(exePath, "\\", "/"))
+	exeDir := path.Dir(strings.ReplaceAll(exePath, "\\", "/"))
+
+	return fmt.Sprintf("%s/schedule.txt", exeDir)
 }
 
 func ShowSchedule(date string) {
-	file, success := ReadFile(fmt.Sprintf("%s/schedule.txt", GetExecutableDir()))
+	file, success := ReadFile(GetSchedulePath())
 	if !success {
 		return
 	}
@@ -80,7 +82,8 @@ func ShowSchedule(date string) {
 }
 
 func CleanupSchedule() {
-	file, success := ReadFile(fmt.Sprintf("%s/schedule.txt", GetExecutableDir()))
+	schedulePath := GetSchedulePath()
+	file, success := ReadFile(schedulePath)
 	if !success {
 		return
 	}
@@ -121,9 +124,9 @@ func CleanupSchedule() {
 		}
 	}
 
-	_ = WriteFile("schedule.txt", sb.String())
+	_ = WriteFile(schedulePath, sb.String())
 }
 
 func EditSchedule() {
-	open.Start("schedule.txt")
+	open.Start(GetSchedulePath())
 }
